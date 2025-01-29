@@ -75,7 +75,7 @@ function updateBoard() {
         } else if (square === 'O') {
             squareEls[index].innerText = 'O'
         } else if (square === '') {
-            squareEls[index].innertText = ''
+            squareEls[index].innerText = ''
         }
     })
 }
