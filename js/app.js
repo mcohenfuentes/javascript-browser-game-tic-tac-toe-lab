@@ -25,7 +25,7 @@ const winningCombos = [
     [6, 7, 8],
     [0, 3, 6],
     [1, 4, 7],
-    [2, 5, 6],
+    [2, 5, 8],
     [0, 4, 8],
     [2, 4, 6],
   ]
@@ -44,6 +44,7 @@ const squareEls = document.querySelectorAll('.sqr')
 
 const messageEl = document.querySelector('#message')
 
+const resetBtnEl = document.querySelector('#reset')
 
 
 
@@ -85,11 +86,14 @@ function updateMessage() {
 }
 
     function handleClick(event) {
-        console.log('it works')
+       
         
         const squareIndex = event.target.id;
-        console.log(squareIndex)
+        console.log(squareIndex);
         placePiece(squareIndex);
+        console.log(winner)
+        checkForWinner();
+        checkForTie();
         if (board[squareIndex] === 'X' || board[squareIndex] === 'O') {
             return
         }
@@ -103,20 +107,43 @@ function updateMessage() {
             console.log(board)
         }
     
-        function checkForwinner () {
-            if(
-                board[0] !== "" && board[0] === board[1] && board[0] === board[2]
-                board[3] !== "" && board[3] === board[4] && board[3] === board[5]
-                board[6] !== "" && board[6] === board[7] && board[6] === board[8]
-                board[0] !== "" && board[0] === board[3] && board[0] === board[6]
-                board[1] !== "" && board[1] === board[4] && board[1] === board[7]
-                board[2] !== "" && board[2] === board[5] && board[2] === board[6]
-                board[0] !== "" && board[0] === board[4] && board[0] === board[8]
-                board[2] !== "" && board[2] === board[4] && board[2] === board[6] 
+        function checkForWinner() {
+            if (
+                (board[0] !== "" && board[0] === board[1] && board[0] === board[2]) ||
+                (board[3] !== "" && board[3] === board[4] && board[3] === board[5]) ||
+                (board[6] !== "" && board[6] === board[7] && board[6] === board[8]) ||
+                (board[0] !== "" && board[0] === board[3] && board[0] === board[6]) ||
+                (board[1] !== "" && board[1] === board[4] && board[1] === board[7]) ||
+                (board[2] !== "" && board[2] === board[5] && board[2] === board[6]) ||
+                (board[0] !== "" && board[0] === board[4] && board[0] === board[8]) ||
+                (board[2] !== "" && board[2] === board[4] && board[2] === board[6])
             ) {
-                winner = true;
+                Winner = true;
             }
+            
         };
+
+        function checkForTie () {
+            if (winner) {
+                return
+            } else if (board[index] = '') {
+                tie = false 
+            } else {
+                tie = true
+            }
+            
+        }
+
+        function switchPlayerTurn () {
+            if (winner) {
+                return
+            }
+            if (turn === 'X') {
+                turn = 'O'
+            } else {
+                turn = 'X'
+            }
+        }
     
     /*----------------------------- Event Listeners -----------------------------*/
    
@@ -124,4 +151,6 @@ function updateMessage() {
         square.addEventListener('click', handleClick);
     });
 
+    reset.addEventListener('click', init);
+    
 init()
